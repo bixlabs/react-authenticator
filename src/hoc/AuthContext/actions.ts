@@ -1,0 +1,3 @@
+export default {
+  AUTH_STATE_CHANGED: "AUTH_STATE_CHANGED"
+}
