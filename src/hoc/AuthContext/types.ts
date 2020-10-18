@@ -1,14 +1,9 @@
-export type UserType = {
+export type User = {
   email?: string;
   password?: string;
   token?: string;
-}
+};
 
-export type InitialStateType = {
-  user: UserType;
-}
-
-export type AuthActionsType = {
-  type: string;
-  payload: any;
-}
+export type State = {
+  user: User;
+};

@@ -1,7 +1,7 @@
-import actions from './actions';
-import { UserType } from './types';
+import actions from "./actions";
+import { User } from "./types";
 
-const authReducer = (state: { user: UserType }, action: any) => {
+const authReducer = (state: { user: User }, action: any) => {
   console.log(`Auth Reducer => ${action.type}`, action);
   switch (action.type) {
     case actions.AUTH_STATE_CHANGED:
