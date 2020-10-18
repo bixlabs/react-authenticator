@@ -1,8 +1,8 @@
-import Home from "../screens/Home/Home";
+import React from "react";
 
 export default [
   {
     path: "/",
-    component: Home
-  }
-]
+    component: React.lazy(() => import("../screens/Home/Home")),
+  },
+];

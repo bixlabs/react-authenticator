@@ -1,9 +1,5 @@
-import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import React, { Suspense, useContext } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthContext } from "../hoc/AuthContext/AuthContext";
 import WithAuthenticationLayout from "../hoc/WithAuthLayout";
 import loggedRoutes from "./logged";
@@ -15,20 +11,24 @@ const RouterComponent = () => {
   return (
     <Router>
       <Switch>
-        {
-          !state.user || !state.user.email ? unloggedRoutes.map(
-            unloggedRoute => <Route>
-              {WithAuthenticationLayout(unloggedRoute.component)}
-            </Route>
-          ) : loggedRoutes.map(
-            loggedRoute => <Route>
-              <loggedRoute.component />
-            </Route>
-          )
-        }
+        {!state.user || !state.user.email
+          ? unloggedRoutes.map((unloggedRoute, index) => (
+              <Route path={unloggedRoute.path} key={index}>
+                <Suspense fallback={<div>Loading...</div>}>
+                  {WithAuthenticationLayout(unloggedRoute.component)}
+                </Suspense>
+              </Route>
+            ))
+          : loggedRoutes.map((loggedRoute, index) => (
+              <Route path={loggedRoute.path} key={index}>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <loggedRoute.component />
+                </Suspense>
+              </Route>
+            ))}
       </Switch>
     </Router>
-  )
-}
+  );
+};
 
 export default RouterComponent;

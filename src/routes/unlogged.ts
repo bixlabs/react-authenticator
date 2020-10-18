@@ -1,8 +1,14 @@
-import Login from '../screens/Login/Login';
+import React from "react";
 
 export default [
   {
+    path: "/sign-up",
+    component: React.lazy(() => import("../screens/Signup/Signup")),
+    exact: true,
+  },
+  {
     path: "/",
-    component: Login
-  }
-]
+    component: React.lazy(() => import("../screens/Login/Login")),
+    exact: true,
+  },
+];
