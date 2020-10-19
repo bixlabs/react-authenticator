@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { AuthContext } from "../hoc/AuthContext/AuthContext";
-import WithAuthenticationLayout from "../hoc/WithAuthLayout";
+import { AuthContext } from "context/AuthContext/AuthContext";
+import WithAuthenticationLayout from "components/hoc/WithAuthLayout";
 import loggedRoutes from "./logged";
 import unloggedRoutes from "./unlogged";
 

@@ -1,7 +1,7 @@
 import React from "react";
-import { AuthProvider } from "./hoc/AuthContext/AuthContext";
-import RouterComponent from "./routes/Router";
-import WithTheme from "./hoc/WithTheme";
+import { AuthProvider } from "context/AuthContext/AuthContext";
+import RouterComponent from "routes/Router";
+import WithTheme from "components/hoc/WithTheme";
 
 function App() {
   return (
