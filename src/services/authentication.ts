@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "authenticator/structures/User";
-const { REACT_APP_AUTH_API_URL } = process.env;
+const { REACT_APP_AUTH_API } = process.env;
 
 export const signUp = async (
   user: User,
@@ -8,12 +8,14 @@ export const signUp = async (
   onError: Function
 ) => {
   try {
-    const response = await axios.get(
-      REACT_APP_AUTH_API_URL + "healthcheck" || ""
-    );
+    await axios.post(REACT_APP_AUTH_API + "user/signup", user, {
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
 
     if (onSuccess) {
-      onSuccess(response);
+      login(user, onSuccess, onError);
     }
   } catch (error) {
     onError(error);
@@ -26,14 +28,42 @@ export const login = async (
   onError: Function
 ) => {
   try {
-    const response = await axios.get(
-      REACT_APP_AUTH_API_URL + "healthcheck" || ""
-    );
+    const { data } = await axios.post(REACT_APP_AUTH_API + "user/login", user, {
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
 
     if (onSuccess) {
-      onSuccess(response);
+      handleLoginSuccess(getUserFromLoginResponse(data.result), onSuccess);
     }
   } catch (error) {
     onError(error);
+  }
+};
+
+const handleLoginSuccess = (user: User, callback: Function) => {
+  localStorage.setItem("user", JSON.stringify(user));
+  callback(user);
+};
+
+const getUserFromLoginResponse = ({
+  user,
+  exp,
+  iat,
+  jwt,
+}: {
+  exp: number;
+  iat: number;
+  jwt: string;
+  user: User;
+}): User => {
+  return { ...user, token: { expiresIn: exp, token: jwt } };
+};
+
+export const logout = (callback: Function) => {
+  localStorage.removeItem("user");
+  if (callback) {
+    callback();
   }
 };

@@ -1,8 +1,9 @@
+import React from "react";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { PowerSettingsNew } from "@material-ui/icons";
-import React from "react";
 import actions from "context/AuthContext/actions";
 import { AuthContext } from "context/AuthContext/AuthContext";
+import { logout } from "services/authentication";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +22,11 @@ const Home: React.FC = () => {
   const { dispatch } = React.useContext(AuthContext);
 
   const handleLogout = () =>
-    dispatch({
-      type: actions.AUTH_STATE_CHANGED,
-      payload: { email: null, password: null },
-    });
+    logout(() =>
+      dispatch({
+        type: actions.LOGOUT,
+      })
+    );
 
   return (
     <div className={classes.root}>

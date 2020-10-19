@@ -6,7 +6,13 @@ const authReducer = (state: Auth, action: any) => {
   switch (action.type) {
     case actions.AUTH_STATE_CHANGED:
       return {
+        ...state,
         user: action.payload,
+      };
+    case actions.LOGOUT:
+      return {
+        ...state,
+        user: {},
       };
   }
   return state;
