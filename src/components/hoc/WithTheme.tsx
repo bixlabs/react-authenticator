@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { light, dark } from "../theme/theme";
+import { light, dark } from "theme/theme";
 import { IconButton } from "@material-ui/core";
 import { BrightnessMedium } from "@material-ui/icons";
 
