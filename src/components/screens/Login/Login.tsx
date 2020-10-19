@@ -1,8 +1,8 @@
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import actions from "../../hoc/AuthContext/actions";
-import { AuthContext } from "../../hoc/AuthContext/AuthContext";
+import actions from "context/AuthContext/actions";
+import { AuthContext } from "context/AuthContext/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonLink: {

@@ -1,8 +1,8 @@
 import { IconButton, makeStyles } from "@material-ui/core";
 import { PowerSettingsNew } from "@material-ui/icons";
 import React from "react";
-import actions from "../../hoc/AuthContext/actions";
-import { AuthContext } from "../../hoc/AuthContext/AuthContext";
+import actions from "context/AuthContext/actions";
+import { AuthContext } from "context/AuthContext/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {

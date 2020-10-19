@@ -1,11 +1,9 @@
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import actions from "../../hoc/AuthContext/actions";
-import { AuthContext } from "../../hoc/AuthContext/AuthContext";
-import validateEmail, {
-  EmailStatus,
-} from "../../utils/validation/validateEmail";
+import actions from "context/AuthContext/actions";
+import { AuthContext } from "context/AuthContext/AuthContext";
+import validateEmail, { EmailStatus } from "utils/validation/validateEmail";
 
 const useStyles = makeStyles(() => ({
   buttonLink: {
@@ -32,6 +30,7 @@ const Signup: React.FC<{ className: string }> = ({ className }) => {
   const [emailValidationTimeout, setEmailValidationTimeout] = useState(
     setTimeout(() => null, 10)
   );
+
   const [password, setpassword] = useState("");
 
   const handleAuth = () =>
