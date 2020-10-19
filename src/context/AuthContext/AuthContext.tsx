@@ -1,13 +1,11 @@
 import React, { FC, useReducer } from "react";
-import { State } from "./types";
+import { Auth } from "authenticator/structures/Auth";
 import authReducer from "./reducer";
 
-const initialState: State = {
-  user: {},
-};
+const initialState: Auth = {};
 
 export const AuthContext = React.createContext<{
-  state: State;
+  state: Auth;
   dispatch: React.Dispatch<any>;
 }>({
   state: initialState,
