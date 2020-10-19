@@ -1,3 +1,5 @@
+import { Token } from "authenticator/structures/Token";
+
 export type User = {
   id?: string;
   email: string;
@@ -6,5 +8,5 @@ export type User = {
   secondName?: string;
   familyName?: string;
   secondFamilyName?: string;
-  token?: string;
+  token?: Token;
 };
