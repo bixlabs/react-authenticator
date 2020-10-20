@@ -4,6 +4,7 @@ import { PowerSettingsNew } from "@material-ui/icons";
 import actions from "context/AuthContext/actions";
 import { AuthContext } from "context/AuthContext/AuthContext";
 import { logout } from "services/authentication";
+import UseCallbackDemo from "../components/EmailTextField/UseCallbackDemo/UseCallbackDemo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,8 @@ const Home: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      Logged In
+      <UseCallbackDemo />
+      <div>Logged In</div>
       <IconButton aria-label="sign out" onClick={handleLogout}>
         <PowerSettingsNew />
       </IconButton>
