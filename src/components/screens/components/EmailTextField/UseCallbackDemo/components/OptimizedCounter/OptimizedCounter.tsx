@@ -1,21 +1,22 @@
 import React, { useCallback, useState } from "react";
 import MemoizedButton from "../MemoizedButton/MemoizedButton";
+import { INITIAL_BUTTON_CLICKED_TIMES } from "../constants";
 
 const OptimizedCounter: React.FC = () => {
-  const [timesMemoizedBtnClicked, setTimesMemoizedBtnClicked] = useState(0);
+  const [timesMemoizedButtonClicked, setTimesMemoizedButtonClicked] = useState(
+    INITIAL_BUTTON_CLICKED_TIMES
+  );
 
   const incrementMemoizedButtonClicks = useCallback(
     (e: React.MouseEvent) => {
-      setTimesMemoizedBtnClicked(
-        (TimesMemoBtnClicked) => TimesMemoBtnClicked + 1
-      );
+      setTimesMemoizedButtonClicked((actualValue) => actualValue + 1);
     },
-    [setTimesMemoizedBtnClicked]
+    [setTimesMemoizedButtonClicked]
   );
 
   return (
     <>
-      <div>You've clicked the button {timesMemoizedBtnClicked} times</div>
+      <div>You've clicked the button {timesMemoizedButtonClicked} times</div>
       <MemoizedButton increment={incrementMemoizedButtonClicks} />
     </>
   );
