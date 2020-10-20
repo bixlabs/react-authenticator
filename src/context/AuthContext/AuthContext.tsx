@@ -23,12 +23,16 @@ export const AuthProvider: FC = ({ children }) => {
 
   const restoreSessionFromLocalStorage = () => {
     const user = getUserFromLocalStorage();
-    if (user) {
-      dispatch({
+    if (user.isAuthenticated()) {
+      return dispatch({
         type: actions.AUTH_STATE_CHANGED,
         payload: user,
       });
     }
+
+    return dispatch({
+      type: actions.LOGOUT,
+    });
   };
 
   return (

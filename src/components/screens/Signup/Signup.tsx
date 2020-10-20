@@ -35,7 +35,7 @@ const Signup: React.FC<{ className: string }> = ({ className }) => {
   const handleSubmit = () => {
     const emailValueStatus: EmailStatus = validateEmail(email);
     if (formIsValid(emailValueStatus, password)) {
-      return signUp({ email, password }, handleAuth, () => null);
+      return signUp(new User({ email, password }), handleAuth, () => null);
     }
   };
 
