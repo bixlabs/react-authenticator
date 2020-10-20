@@ -35,7 +35,7 @@ export class User {
     const getTimeValueInSeconds = (): number =>
       new Date().getTime() * MS_TO_SECONDS_CONVERSION_FACTOR;
 
-    if (!this.token) {
+    if (!this.token || !this.id) {
       return false;
     }
 
