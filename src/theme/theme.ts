@@ -1,14 +1,15 @@
-const lightType: "light" | "dark" | undefined = "light";
-const darkType: "light" | "dark" | undefined = "dark";
+type Theme = "light" | "dark";
+export const LIGHT: Theme = "light";
+export const DARK: Theme = "dark";
 
 export const light = {
   palette: {
-    type: lightType,
+    type: LIGHT,
   },
 };
 
 export const dark = {
   palette: {
-    type: darkType,
+    type: DARK,
   },
 };
