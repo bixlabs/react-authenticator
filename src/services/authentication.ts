@@ -10,6 +10,7 @@ export const signUp = async (
   try {
     await axios.post(REACT_APP_AUTH_API + "user/signup", user, {
       headers: {
+        //TODO: remove for preflight request to trigger
         "Content-Type": "text/plain",
       },
     });
@@ -30,6 +31,7 @@ export const login = async (
   try {
     const { data } = await axios.post(REACT_APP_AUTH_API + "user/login", user, {
       headers: {
+        //TODO: remove for preflight request to trigger
         "Content-Type": "text/plain",
       },
     });
@@ -58,7 +60,10 @@ const getUserFromLoginResponse = ({
   jwt: string;
   user: User;
 }): User => {
-  return { ...user, token: { expiresIn: exp, token: jwt } };
+  return new User({
+    ...user,
+    token: { expiresIn: exp, token: jwt },
+  });
 };
 
 export const logout = (callback: Function) => {

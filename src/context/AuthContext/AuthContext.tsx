@@ -18,17 +18,21 @@ export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    tryAutoLogin();
+    restoreSessionFromLocalStorage();
   }, []);
 
-  const tryAutoLogin = () => {
+  const restoreSessionFromLocalStorage = () => {
     const user = getUserFromLocalStorage();
-    if (user) {
-      dispatch({
+    if (user.isAuthenticated()) {
+      return dispatch({
         type: actions.AUTH_STATE_CHANGED,
         payload: user,
       });
     }
+
+    return dispatch({
+      type: actions.LOGOUT,
+    });
   };
 
   return (

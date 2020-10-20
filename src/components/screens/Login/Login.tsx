@@ -34,7 +34,7 @@ const Login: React.FC<{ className: string }> = ({ className }) => {
   const handleSubmit = () => {
     const emailValueStatus: EmailStatus = validateEmail(email);
     if (formIsValid(emailValueStatus, password)) {
-      return login({ email, password }, handleAuth, () => null);
+      return login(new User({ email, password }), handleAuth, () => null);
     }
   };
 
