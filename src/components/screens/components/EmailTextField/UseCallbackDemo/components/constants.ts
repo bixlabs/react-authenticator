@@ -1,0 +1,1 @@
+export const INITIAL_BUTTON_CLICKED_TIMES = 0;
