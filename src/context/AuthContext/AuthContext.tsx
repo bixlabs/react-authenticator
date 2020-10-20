@@ -18,10 +18,10 @@ export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    tryAutoLogin();
+    restoreSessionFromLocalStorage();
   }, []);
 
-  const tryAutoLogin = () => {
+  const restoreSessionFromLocalStorage = () => {
     const user = getUserFromLocalStorage();
     if (user) {
       dispatch({
