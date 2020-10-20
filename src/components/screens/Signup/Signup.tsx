@@ -1,9 +1,12 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import actions from "context/AuthContext/actions";
 import { AuthContext } from "context/AuthContext/AuthContext";
 import validateEmail, { EmailStatus } from "utils/validation/validateEmail";
+import EmailTextField from "../components/EmailTextField/EmailTextField";
+import { signUp } from "services/authentication";
+import { User } from "authenticator/structures/User";
 
 const useStyles = makeStyles(() => ({
   buttonLink: {
@@ -21,46 +24,19 @@ const Signup: React.FC<{ className: string }> = ({ className }) => {
   const { dispatch } = React.useContext(AuthContext);
 
   const [email, setEmail] = useState("");
-  const [emailStatus, setEmailStatus] = useState({
-    value: "",
-    validateStatus: "",
-    errorMsg: "",
-    validForSubmission: false,
-  });
-  const [emailValidationTimeout, setEmailValidationTimeout] = useState(
-    setTimeout(() => null, 10)
-  );
-
   const [password, setpassword] = useState("");
 
-  const handleAuth = () =>
+  const handleAuth = (user: User) =>
     dispatch({
       type: actions.AUTH_STATE_CHANGED,
-      payload: { email, password },
+      payload: user,
     });
 
   const handleSubmit = () => {
     const emailValueStatus: EmailStatus = validateEmail(email);
     if (formIsValid(emailValueStatus, password)) {
-      return handleAuth();
+      return signUp(new User({ email, password }), handleAuth, () => null);
     }
-
-    setEmailStatus({ ...emailStatus });
-  };
-
-  const setValidatedEmail = (value: string, debounceTimer = 0) => {
-    setEmail(value);
-    restartEmailValidationTimeout(() => {
-      setEmailStatus((state) => ({ ...state, ...validateEmail(value) }));
-    }, debounceTimer);
-  };
-
-  const restartEmailValidationTimeout = (callback: Function, timer: number) => {
-    if (emailValidationTimeout) {
-      clearTimeout(emailValidationTimeout);
-    }
-    const validationTimeout = setTimeout(() => callback(), timer);
-    setEmailValidationTimeout(validationTimeout);
   };
 
   const formIsValid = (emailStatus: EmailStatus, password: string) => {
@@ -69,16 +45,7 @@ const Signup: React.FC<{ className: string }> = ({ className }) => {
 
   return (
     <form className={className} autoComplete="off">
-      <TextField
-        error={emailStatus.validateStatus === "warning"}
-        id="loginUserEmail"
-        label="Email"
-        type="email"
-        value={email}
-        helperText={emailStatus.errorMsg}
-        onChange={({ target }) => setValidatedEmail(target.value, 1500)}
-        onBlur={({ target }) => setValidatedEmail(target.value, 0)}
-      />
+      <EmailTextField value={email} onChange={setEmail} />
       <TextField
         id="loginUserPassword"
         label="Password"
